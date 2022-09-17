@@ -9,7 +9,7 @@ export default function validarLogin(data) {
     data.password = !isEmpty(data.password) ? data.password : "";
 
     if (Validator.isEmpty(data.email)) {
-        errores.email = "El email es requerido";
+        errores.email = "El correo electrónico es requerido";
     } else if (!Validator.isEmail(data.email)) {
         errores.email = "El email es invalido";
     }
