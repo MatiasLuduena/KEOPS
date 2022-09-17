@@ -2,9 +2,10 @@ import express from 'express';
 const rutas = express.Router();
 
 // importaciones
-import { getUsuarios } from '../controladores/UsuariosControladores.js';
+import { postRegister, postLogin } from '../controladores/UsuariosControladores.js';
 
 // rutas
-rutas.get('/', getUsuarios);
+rutas.post('/register', postRegister);
+rutas.post('/login', postLogin);
 
 export default rutas;

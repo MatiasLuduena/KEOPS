@@ -3,13 +3,23 @@ import express from 'express';
 import dotenv from 'dotenv';
 import morgan from 'morgan';
 import mongoose from 'mongoose';
+import bodyParser from 'body-parser';
+import cors from "cors";
+import passport from 'passport';
 
 // métodos
 const app = express();
 dotenv.config();
 
 // middlewares
+app.use(cors());
 app.use(morgan('dev'));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(passport.initialize());
+
+import passportjs from "./config/passport.js";
+passportjs(passport);
 
 // MongoDB
 mongoose.connect(process.env.MONGODB_URL)
