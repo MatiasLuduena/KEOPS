@@ -12,13 +12,18 @@ const Register = () => {
 
   function clickBoton(e) {
     e.preventDefault();
+
+    // decuelve los errores de sus respectivos campos 
   }
 
   return (
     <div className="card-login p-4">
       <div className="card-login_head mt-4">
-        <h4>CREAR CUENTA</h4>
-        <p>Bienvenido a KEOPS.</p>
+        <div className="d-flex justify-content-between">
+          <h4>CREAR CUENTA</h4>
+          <h4>$400</h4>
+        </div>
+        <p>Se te cobrará una licencia única.</p>
       </div>
 
       <form className="mt-4">
@@ -62,7 +67,7 @@ const Register = () => {
           />
           <p className="red-text d-none">Confirmar contraseña es requerido.</p>
         </div>
-        <button className="waves-effect btn mt-3" onClick={clickBoton}>CREAR CUENTA</button>
+        <button className="waves-effect btn mt-3" onClick={clickBoton}>IR A PAGAR</button>
       </form>
 
       <div className="d-flex justify-content-center mt-4">
