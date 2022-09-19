@@ -85,3 +85,16 @@ export const postLogin = (req, res) => {
         });
     });
 }
+
+export const getAuth = async (req, res) => {
+    try {
+        const { nombre, email } = await UsuariosModelo.findById(req.usuario.id);
+
+        res.status(200).json({
+            nombre,
+            email
+        });
+    } catch (error) {
+        console.log(error);
+    }
+}
