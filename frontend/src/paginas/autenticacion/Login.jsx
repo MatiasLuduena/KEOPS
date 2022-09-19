@@ -1,18 +1,34 @@
 import "./auth.css";
-import { useState } from "react"
+import axios from "axios";
+import { useState, useContext } from "react"
 
 // router-dom
 import { Link } from "react-router-dom";
 
+// context
+import authContext from "../../context/authContext";
+
 const datosIniciales = {
-  email: "", contra: ""
+  email: "", password: ""
 };
 
 const Login = () => {
   const [datos, setDatos] = useState(datosIniciales);
+  const [errores, setErrores] = useState(datosIniciales);
+  const { setToken } = useContext(authContext);
 
-  function clickBoton(e) {
+  async function clickBoton(e) {
     e.preventDefault();
+
+    try {
+			const rta = await axios.post('http://localhost:5000/api/usuarios/login', {
+				email: datos.email,
+				password: datos.password
+			});
+      setToken(rta.data.token);
+		} catch (error) {
+      setErrores(error.response.data);
+		}
   }
 
   return (
@@ -31,17 +47,17 @@ const Login = () => {
               setDatos({...datos, email: evento.target.value});
             }}
           />
-          <p className="red-text d-none">El correo electrónico es requerido.</p>
+          <p className="red-text">{errores.email}</p>
         </div>
         <div className="input-field col s12 mt-4">
           <label htmlFor="password">Contraseña</label>
           <input 
-            type="password" id="password" value={datos.contra}
+            type="password" id="password" value={datos.password}
             onChange={(evento) => {
-              setDatos({...datos, contra: evento.target.value});
+              setDatos({...datos, password: evento.target.value});
             }}
           />
-          <p className="red-text d-none">La contraseña es requerida.</p>
+          <p className="red-text">{errores.password}</p>
         </div>
         <button className="waves-effect btn mt-3" onClick={clickBoton}>INICIAR SESIÓN</button>
       </form>

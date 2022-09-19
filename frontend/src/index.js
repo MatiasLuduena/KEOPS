@@ -3,13 +3,12 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 
-// temas
-import { ThemeProvider } from "@mui/material/styles";
-import { temas } from "./temas";
+// context
+import { AuthProvider } from "./context/authContext";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <ThemeProvider theme={temas}>
+  <AuthProvider>
     <App />
-  </ThemeProvider>
+  </AuthProvider>
 );

@@ -1,19 +1,35 @@
 import { useState } from "react"
+import axios from "axios";
 
 // router dom
 import { Link } from "react-router-dom";
 
 const datosIniciales = {
-  nombre: "", email: "", contra: "", contra2: ""
+  nombre: "", email: "", password: "", password2: ""
 };
 
 const Register = () => {
   const [datos, setDatos] = useState(datosIniciales);
+  const [errores, setErrores] = useState(datosIniciales);
 
-  function clickBoton(e) {
+  async function clickBoton(e) {
     e.preventDefault();
 
-    // decuelve los errores de sus respectivos campos 
+    try {
+      const rta = await axios.post('http://localhost:5000/api/usuarios/register', {
+				nombre: datos.nombre,
+				email: datos.email,
+				password: datos.password,
+        password2: datos.password2
+			});
+
+      if (rta.statusText === "OK") {
+        alert("TE HAZ REGISTRADO CON ÉXITO, AHORA DEBES INICIAR SESIÓN.");
+        window.location.href = "/iniciosesion";
+      }
+    } catch (error) {
+      setErrores(error.response.data);
+    }
   }
 
   return (
@@ -27,7 +43,7 @@ const Register = () => {
       </div>
 
       <form className="mt-4">
-      <div className="input-field col s12">
+        <div className="input-field col s12">
           <label htmlFor="nombre">Nombre de usuario</label>
           <input
             type="text" id="nombre" value={datos.nombre}
@@ -35,7 +51,7 @@ const Register = () => {
               setDatos({...datos, nombre: evento.target.value});
             }}
           />
-          <p className="red-text d-none">El nombre de usuario es requerido.</p>
+          <p className="red-text">{errores.nombre}</p>
         </div>
         <div className="input-field col s12">
           <label htmlFor="email">Correo electrónico</label>
@@ -45,33 +61,33 @@ const Register = () => {
               setDatos({...datos, email: evento.target.value});
             }}
           />
-          <p className="red-text d-none">El correo electrónico es requerido.</p>
+          <p className="red-text">{errores.email}</p>
         </div>
         <div className="input-field col s12 mt-4">
           <label htmlFor="password">Contraseña</label>
           <input
-            type="password" id="password" value={datos.contra}
+            type="password" id="password" value={datos.password}
             onChange={(evento) => {
-              setDatos({...datos, contra: evento.target.value});
+              setDatos({...datos, password: evento.target.value});
             }}
           />
-          <p className="red-text d-none">La contraseña es requerida.</p>
+          <p className="red-text">{errores.password}</p>
         </div>
         <div className="input-field col s12 mt-4">
           <label htmlFor="password2">Confirmar contraseña</label>
           <input
-            type="password" id="password2" value={datos.contra2}
+            type="password" id="password2" value={datos.password2}
             onChange={(evento) => {
-              setDatos({...datos, contra2: evento.target.value});
+              setDatos({...datos, password2: evento.target.value});
             }}
           />
-          <p className="red-text d-none">Confirmar contraseña es requerido.</p>
+          <p className="red-text">{errores.password2}</p>
         </div>
         <button className="waves-effect btn mt-3" onClick={clickBoton}>IR A PAGAR</button>
       </form>
 
       <div className="d-flex justify-content-center mt-4">
-        <p>¿Ya tienes una cuenta? <Link to="/">INICIAR SESIÓN</Link></p>
+        <p>¿Ya tienes una cuenta? <Link to="/iniciosesion">INICIAR SESIÓN</Link></p>
       </div>
     </div>
   );
