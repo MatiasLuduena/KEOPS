@@ -2,7 +2,7 @@ import { useState } from "react"
 import axios from "axios";
 
 // router dom
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
 const datosIniciales = {
   nombre: "", email: "", password: "", password2: ""
@@ -12,6 +12,21 @@ const Register = () => {
   const [datos, setDatos] = useState(datosIniciales);
   const [errores, setErrores] = useState(datosIniciales);
 
+  // Parametros de Usuarios
+  const [params] = useSearchParams();
+
+  let uIds = { id1: "", id2: "", id3: "" };
+  const array = ['uid1', 'uid2', 'uid3'];
+
+  array.forEach((elemento) => {
+    if (!localStorage.getItem(elemento)) {
+      localStorage.setItem(elemento, JSON.stringify(params.get(elemento)));
+      uIds.id1 = JSON.parse(localStorage.getItem(elemento));
+    } else {
+      uIds.id1 = JSON.parse(localStorage.getItem(elemento));
+    }
+  });
+
   async function clickBoton(e) {
     e.preventDefault();
 
@@ -20,7 +35,8 @@ const Register = () => {
 				nombre: datos.nombre,
 				email: datos.email,
 				password: datos.password,
-        password2: datos.password2
+        password2: datos.password2,
+        uIds: uIds
 			});
 
       if (rta.statusText === "OK") {

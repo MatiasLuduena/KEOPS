@@ -18,6 +18,10 @@ const usuariosEsquema = new mongoose.Schema(
         password: {
             type: String,
             required: true
+        },
+        url: {
+            type: String,
+            required: true
         }
     },
     {

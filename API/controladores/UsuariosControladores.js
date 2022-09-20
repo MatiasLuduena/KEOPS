@@ -10,7 +10,55 @@ import ValidarRegister from "../validacion/Register.js";
 import ValidarLogin from "../validacion/Login.js";
 
 // métodos
-export const postRegister = (req, res) => {
+export const postRegister = async (req, res) => {
+    // usuarios id
+    const uIds = req.body.uIds;
+
+    const usuarioId1 = await UsuariosModelo.findById(uIds.id1);
+    
+    UsuariosModelo.updateOne({_id: uIds.id1}, {
+        $set: {
+            numeroDeVentas: usuarioId1.numeroDeVentas + 1
+        }
+    }, (error, info) => {
+        if (error) {
+            console.log(error);
+        }
+        if (info) {
+            console.log(info);
+        }
+    });
+
+    const usuarioId2 = await UsuariosModelo.findById(uIds.id2);
+    
+    UsuariosModelo.updateOne({_id: uIds.id2}, {
+        $set: {
+            numeroDeVentas: usuarioId2.numeroDeVentas + 1
+        }
+    }, (error, info) => {
+        if (error) {
+            console.log(error);
+        }
+        if (info) {
+            console.log(info);
+        }
+    });
+
+    const usuarioId3 = await UsuariosModelo.findById(uIds.id3);
+    
+    UsuariosModelo.updateOne({_id: uIds.id3}, {
+        $set: {
+            numeroDeVentas: usuarioId3.numeroDeVentas + 1
+        }
+    }, (error, info) => {
+        if (error) {
+            console.log(error);
+        }
+        if (info) {
+            console.log(info);
+        }
+    });
+
     // Validar formulario
     const { errores, esValido } = ValidarRegister(req.body);
 
@@ -25,7 +73,8 @@ export const postRegister = (req, res) => {
             const nuevoUsuario = new UsuariosModelo({
             nombre: req.body.nombre,
             email: req.body.email,
-            password: req.body.password
+            password: req.body.password,
+            url: `http://localhost:3000/registrarme?uid1=`
         });
 
         // Encriptado de contraseña
