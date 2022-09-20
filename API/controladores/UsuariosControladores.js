@@ -14,50 +14,56 @@ export const postRegister = async (req, res) => {
     // usuarios id
     const uIds = req.body.uIds;
 
-    const usuarioId1 = await UsuariosModelo.findById(uIds.id1);
-    
-    UsuariosModelo.updateOne({_id: uIds.id1}, {
-        $set: {
-            numeroDeVentas: usuarioId1.numeroDeVentas + 1
+    UsuariosModelo.findOne({ _id: uIds.id1 }).then(user => {
+        if (user) {
+            UsuariosModelo.updateOne(user, {
+                $set: {
+                    numeroDeVentas: user.numeroDeVentas + 1
+                }
+            }, (error, info) => {
+                if (error) {
+                    console.log(error);
+                }
+                if (info) {
+                    console.log(info);
+                }
+            });
         }
-    }, (error, info) => {
-        if (error) {
-            console.log(error);
-        }
-        if (info) {
-            console.log(info);
-        }
-    });
+    }).catch(error => console.log('no existe id1'));
 
-    const usuarioId2 = await UsuariosModelo.findById(uIds.id2);
-    
-    UsuariosModelo.updateOne({_id: uIds.id2}, {
-        $set: {
-            numeroDeVentas: usuarioId2.numeroDeVentas + 1
+    UsuariosModelo.findOne({ _id: uIds.id2 }).then(user => {
+        if (user) {
+            UsuariosModelo.updateOne(user, {
+                $set: {
+                    numeroDeVentas: user.numeroDeVentas + 1
+                }
+            }, (error, info) => {
+                if (error) {
+                    console.log(error);
+                }
+                if (info) {
+                    console.log(info);
+                }
+            });
         }
-    }, (error, info) => {
-        if (error) {
-            console.log(error);
-        }
-        if (info) {
-            console.log(info);
-        }
-    });
+    }).catch(error => console.log('no existe id2'));
 
-    const usuarioId3 = await UsuariosModelo.findById(uIds.id3);
-    
-    UsuariosModelo.updateOne({_id: uIds.id3}, {
-        $set: {
-            numeroDeVentas: usuarioId3.numeroDeVentas + 1
+    UsuariosModelo.findOne({ _id: uIds.id3 }).then(user => {
+        if (user) {
+            UsuariosModelo.updateOne(user, {
+                $set: {
+                    numeroDeVentas: user.numeroDeVentas + 1
+                }
+            }, (error, info) => {
+                if (error) {
+                    console.log(error);
+                }
+                if (info) {
+                    console.log(info);
+                }
+            });
         }
-    }, (error, info) => {
-        if (error) {
-            console.log(error);
-        }
-        if (info) {
-            console.log(info);
-        }
-    });
+    }).catch(error => console.log('no existe id3'));
 
     // Validar formulario
     const { errores, esValido } = ValidarRegister(req.body);
@@ -74,7 +80,7 @@ export const postRegister = async (req, res) => {
             nombre: req.body.nombre,
             email: req.body.email,
             password: req.body.password,
-            url: `http://localhost:3000/registrarme?uid1=`
+            url: `http://localhost:3000/registrarme?uid1=MYID&uid2=${uIds.id1}&uid3=${uIds.id2}`
         });
 
         // Encriptado de contraseña
@@ -114,7 +120,8 @@ export const postLogin = (req, res) => {
             // Crear JWT Payload
             const payload = {
                 id: user.id,
-                name: user.name
+                name: user.name,
+                url: user.url
             };
             // Token
             jwt.sign(
@@ -137,11 +144,12 @@ export const postLogin = (req, res) => {
 
 export const getAuth = async (req, res) => {
     try {
-        const { nombre, email } = await UsuariosModelo.findById(req.usuario.id);
+        const { nombre, email, url } = await UsuariosModelo.findById(req.usuario.id);
 
         res.status(200).json({
             nombre,
-            email
+            email,
+            url
         });
     } catch (error) {
         console.log(error);
