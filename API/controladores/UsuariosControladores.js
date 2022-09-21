@@ -80,7 +80,7 @@ export const postRegister = async (req, res) => {
             nombre: req.body.nombre,
             email: req.body.email,
             password: req.body.password,
-            url: `http://localhost:3000/registrarme?uid1=MYID&uid2=${uIds.id1}&uid3=${uIds.id2}`
+            url: `/registrarme?uid1=MYID&uid2=${uIds.id1}&uid3=${uIds.id2}`
         });
 
         // Encriptado de contraseña

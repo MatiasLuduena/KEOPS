@@ -16,16 +16,27 @@ const Register = () => {
   const [params] = useSearchParams();
 
   let uIds = { id1: "", id2: "", id3: "" };
-  const array = ['uid1', 'uid2', 'uid3'];
 
-  array.forEach((elemento) => {
-    if (!localStorage.getItem(elemento)) {
-      localStorage.setItem(elemento, JSON.stringify(params.get(elemento)));
-      uIds.id1 = JSON.parse(localStorage.getItem(elemento));
-    } else {
-      uIds.id1 = JSON.parse(localStorage.getItem(elemento));
-    }
-  });
+  if (!localStorage.getItem('uid1') || localStorage.getItem('uid1') === null) {
+    localStorage.setItem('uid1', JSON.stringify(params.get('uid1')));
+    uIds.id1 = JSON.parse(localStorage.getItem('uid1'));
+  } else {
+    uIds.id1 = JSON.parse(localStorage.getItem('uid1'));
+  }
+
+  if (!localStorage.getItem('uid2') || localStorage.getItem('uid2') === null) {
+    localStorage.setItem('uid2', JSON.stringify(params.get('uid2')));
+    uIds.id2 = JSON.parse(localStorage.getItem('uid2'));
+  } else {
+    uIds.id2 = JSON.parse(localStorage.getItem('uid2'));
+  }
+
+  if (!localStorage.getItem('uid3') || localStorage.getItem('uid3') === null) {
+    localStorage.setItem('uid3', JSON.stringify(params.get('uid3')));
+    uIds.id3 = JSON.parse(localStorage.getItem('uid3'));
+  } else {
+    uIds.id3 = JSON.parse(localStorage.getItem('uid3'));
+  }
 
   async function clickBoton(e) {
     e.preventDefault();
