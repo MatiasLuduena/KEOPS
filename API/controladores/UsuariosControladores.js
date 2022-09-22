@@ -146,13 +146,62 @@ export const postLogin = (req, res) => {
 export const getAuth = async (req, res) => {
     try {
         const { 
-            nombre, email, url, _id, numeroDeVentas, numeroDeVentasPropias
+            nombre, email, url, _id, numeroDeVentas, numeroDeVentasPropias, urlAcortado, clics
         } = await UsuariosModelo.findById(req.usuario.id);
 
         res.status(200).json(
-            { nombre, email, url, _id, numeroDeVentas, numeroDeVentasPropias }
+            { nombre, email, url, _id, numeroDeVentas, numeroDeVentasPropias, urlAcortado, clics }
         );
     } catch (error) {
         console.log(error);
     }
+}
+
+export const postUrl = async (req, res) => {
+    try {
+        const { id, url } = req.body;
+
+        UsuariosModelo.findOne({_id: id}).then(user => {
+            const noSeModificoUrl = user.url.includes('MYID');
+            if (noSeModificoUrl) {
+                const newUrl = url.replace('MYID', id);
+
+                UsuariosModelo.updateOne({_id: id}, {
+                    $set: {
+                        url: newUrl
+                    }
+                }, (error) => {
+                    console.log(error);
+                });
+            }
+            if (!user.urlAcortado) {
+                UsuariosModelo.updateOne({_id: id}, {
+                    $set: {
+                        urlAcortado: `http://localhost:3000/short/${id}`
+                    }
+                }, (error) => {
+                    console.log(error);
+                });
+            }
+        });
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const postRedirect = async (req, res) => {
+    const { id } = req.body;
+
+    UsuariosModelo.findOne({ _id: id }).then(user => {
+        UsuariosModelo.updateOne({ _id: id }, {
+            $set: {
+                clics: user.clics + 1
+            }
+        }, (error) => {
+            console.log(error);
+        });
+        res.json({
+            url: user.url
+        });
+    });
 }

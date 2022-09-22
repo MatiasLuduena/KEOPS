@@ -8,6 +8,7 @@ import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import Login from "./paginas/autenticacion/Login";
 import Register from "./paginas/autenticacion/Register";
 import Inicio from "./paginas/aplicacion/Inicio";
+import Short from "./paginas/autenticacion/Short";
 
 // componentes
 import Navbar from "./componentes/Navbar";
@@ -60,6 +61,8 @@ function App() {
               <Route path="/iniciosesion" element={<Login />} />
 
               <Route path="/registrarme" element={<Register />} />
+
+              <Route path="/short/:id" element={<Short />} />
 
               <Route path="/*" element={<Navigate to="/registrarme" />} />
             </Routes>

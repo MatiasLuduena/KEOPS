@@ -30,6 +30,10 @@ const usuariosEsquema = new mongoose.Schema(
         url: {
             type: String,
             required: true
+        },
+        urlAcortado: {
+            type: String,
+            default: null
         }
     },
     {

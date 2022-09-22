@@ -1,9 +1,20 @@
+import { useEffect } from "react";
+import axios from "axios";
+
 // copiar al portapapeles
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { Toaster, toast } from "react-hot-toast";
 
 const Analiticas = ({usuario}) => {
-    const miUrl =  "http://localhost:3000" + usuario.url.replace('MYID', usuario._id);
+    useEffect(() => {
+        async function fetchUrl() {
+            const res = await axios.post('http://localhost:5000/api/usuarios/url', {
+                url: usuario.url,
+                id: usuario._id
+            });
+        }
+        fetchUrl();
+    }, []);
 
   return (
     <>
@@ -14,10 +25,10 @@ const Analiticas = ({usuario}) => {
                         <h5>Enlace</h5>
                         <p>Enlace que debo compartir para tener mis ventas.</p>
                     </div>
-                    <CopyToClipboard text={miUrl}>
+                    <CopyToClipboard text={usuario.urlAcortado}>
                         <div
                             className="insignia-app2"
-                            onClick={() => toast('Enlace copiado', { position: 'bottom-right' })}
+                            onClick={() => toast('Enlace copiado', { position: 'top-center' })}
                         >
                             COPIAR ENLACE
                         </div>
@@ -34,7 +45,7 @@ const Analiticas = ({usuario}) => {
                         <h5>Clics</h5>
                         <p>Cantidad de clics que ha tenido mi enlace.</p>
                     </div>
-                    <div className="insignia-app">0</div>
+                    <div className="insignia-app">{usuario.clics}</div>
                 </div>
             </div>
             <div className="col-xs-12 col-md-6 col-app p-2">
