@@ -8,6 +8,7 @@ import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import Login from "./paginas/autenticacion/Login";
 import Register from "./paginas/autenticacion/Register";
 import Inicio from "./paginas/aplicacion/Inicio";
+import Usuario from "./paginas/aplicacion/Usuario";
 import Short from "./paginas/autenticacion/Short";
 
 // componentes
@@ -41,18 +42,9 @@ function App() {
   }, [token]);
 
   return (
-    <BrowserRouter>
-      { auth ? (
-        <>
-          <Navbar />
-          <Routes>
-            <Route path="/inicio" element={<Inicio />} />
-
-            <Route path="/*" element={<Navigate to="/inicio" />} />
-          </Routes>
-          <Footer />
-        </>
-      ) : (
+    <>
+      { auth === null ? (
+      <BrowserRouter>
         <div className="fondo-auth">
           <div 
             className="container vh-100 d-flex justify-content-center align-items-center"
@@ -64,12 +56,25 @@ function App() {
 
               <Route path="/short/:id" element={<Short />} />
 
-              <Route path="/*" element={<Navigate to="/registrarme" />} />
+              <Route path="/" element={<Navigate to="/registrarme" />} />
             </Routes>
           </div>
         </div>
+      </BrowserRouter>
+      ) : (
+      <BrowserRouter>
+        <Navbar />
+        <Routes>
+          <Route path="/inicio" element={<Inicio />} />
+
+          <Route path="/usuario" element={<Usuario />} />
+
+          <Route path="/*" element={<Navigate to="/inicio" />} />
+        </Routes>
+        <Footer />
+      </BrowserRouter>
       ) }
-    </BrowserRouter>
+    </>
   );
 }
 
