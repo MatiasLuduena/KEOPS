@@ -43,7 +43,7 @@ const Analiticas = ({usuario}) => {
                         <h5>Ventas propias</h5>
                         <p>Número total de las ventas por mi enlace.</p>
                     </div>
-                    <div className="insignia-app">0</div>
+                    <div className="insignia-app">{usuario.numeroDeVentasPropias}</div>
                 </div>
             </div>
             <div className="col-xs-12 col-md-6 col-app p-2">
