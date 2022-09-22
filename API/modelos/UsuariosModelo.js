@@ -6,6 +6,14 @@ const usuariosEsquema = new mongoose.Schema(
             type: Number,
             default: 0
         },
+        numeroDeVentasPropias: {
+            type: Number,
+            default: 0
+        },
+        clics: {
+            type: Number,
+            default: 0
+        },
         nombre: {
             type: String,
             required: true

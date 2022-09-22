@@ -18,7 +18,8 @@ export const postRegister = async (req, res) => {
         if (user) {
             UsuariosModelo.updateOne(user, {
                 $set: {
-                    numeroDeVentas: user.numeroDeVentas + 1
+                    numeroDeVentas: user.numeroDeVentas + 1,
+                    numeroDeVentasPropias: user.numeroDeVentas + 1
                 }
             }, (error, info) => {
                 if (error) {
@@ -144,13 +145,13 @@ export const postLogin = (req, res) => {
 
 export const getAuth = async (req, res) => {
     try {
-        const { nombre, email, url } = await UsuariosModelo.findById(req.usuario.id);
+        const { 
+            nombre, email, url, _id, numeroDeVentas, numeroDeVentasPropias
+        } = await UsuariosModelo.findById(req.usuario.id);
 
-        res.status(200).json({
-            nombre,
-            email,
-            url
-        });
+        res.status(200).json(
+            { nombre, email, url, _id, numeroDeVentas, numeroDeVentasPropias }
+        );
     } catch (error) {
         console.log(error);
     }

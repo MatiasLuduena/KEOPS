@@ -1,6 +1,6 @@
 const Graficos = () => {
   return (
-    <div>Graficos</div>
+    <div>Graficos: de clics y de ventas propias</div>
   );
 }
 

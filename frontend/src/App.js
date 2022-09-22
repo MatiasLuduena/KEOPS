@@ -28,12 +28,10 @@ function App() {
           }
         });
         if (res) {
-          localStorage.setItem('usuario', JSON.stringify(res.data));
           localStorage.setItem('token', JSON.stringify(token));
           setAuth(res.data);
         }
       } catch (error) {
-        localStorage.removeItem('usuario');
         localStorage.removeItem('token');
         setAuth(null);
       }

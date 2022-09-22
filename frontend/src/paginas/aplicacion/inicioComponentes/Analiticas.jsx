@@ -1,4 +1,10 @@
-const Analiticas = () => {
+// copiar al portapapeles
+import { CopyToClipboard } from "react-copy-to-clipboard";
+import { Toaster, toast } from "react-hot-toast";
+
+const Analiticas = ({usuario}) => {
+    const miUrl =  "http://localhost:3000" + usuario.url.replace('MYID', usuario._id);
+
   return (
     <>
         <div className="row">
@@ -8,8 +14,16 @@ const Analiticas = () => {
                         <h5>Enlace</h5>
                         <p>Enlace que debo compartir para tener mis ventas.</p>
                     </div>
-                    <div className="insignia-app2">COPIAR ENLACE</div>
+                    <CopyToClipboard text={miUrl}>
+                        <div
+                            className="insignia-app2"
+                            onClick={() => toast('Enlace copiado', { position: 'bottom-right' })}
+                        >
+                            COPIAR ENLACE
+                        </div>
+                    </CopyToClipboard>
                 </div>
+                <Toaster />
             </div>
         </div>
 
@@ -38,7 +52,7 @@ const Analiticas = () => {
                         <h5>Ventas</h5>
                         <p>Número total de mis ventas y las de mis hijos.</p>
                     </div>
-                    <div className="insignia-app">0</div>
+                    <div className="insignia-app">{usuario.numeroDeVentas}</div>
                 </div>
             </div>
             <div className="col-xs-12 col-md-6 col-app p-2">
@@ -47,7 +61,7 @@ const Analiticas = () => {
                         <h5>Ganancias</h5>
                         <p>Mis ganancias totales en AR$.</p>
                     </div>
-                    <div className="insignia-app">$0</div>
+                    <div className="insignia-app">${usuario.numeroDeVentas * 100}</div>
                 </div>
             </div>
        </div>
