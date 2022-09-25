@@ -146,11 +146,15 @@ export const postLogin = (req, res) => {
 export const getAuth = async (req, res) => {
     try {
         const { 
-            nombre, email, url, _id, numeroDeVentas, numeroDeVentasPropias, urlAcortado, clics
+            nombre, email, url, _id, numeroDeVentas, numeroDeVentasPropias, urlAcortado, clics,
+            clicsGrafico, numeroDeVentasGrafico
         } = await UsuariosModelo.findById(req.usuario.id);
 
         res.status(200).json(
-            { nombre, email, url, _id, numeroDeVentas, numeroDeVentasPropias, urlAcortado, clics }
+            { 
+                nombre, email, url, _id, numeroDeVentas, numeroDeVentasPropias, urlAcortado, clics,
+                clicsGrafico, numeroDeVentasGrafico
+            }
         );
     } catch (error) {
         console.log(error);
@@ -190,12 +194,13 @@ export const postUrl = async (req, res) => {
 }
 
 export const postRedirect = async (req, res) => {
-    const { id } = req.body;
+    const { id, clicGrafico } = req.body;
 
     UsuariosModelo.findOne({ _id: id }).then(user => {
         UsuariosModelo.updateOne({ _id: id }, {
             $set: {
-                clics: user.clics + 1
+                clics: user.clics + 1,
+                clicsGrafico: user.clicsGrafico + clicGrafico
             }
         }, (error) => {
             console.log(error);

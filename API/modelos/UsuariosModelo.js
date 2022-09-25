@@ -10,9 +10,17 @@ const usuariosEsquema = new mongoose.Schema(
             type: Number,
             default: 0
         },
+        numeroDeVentasGrafico: {
+            type: String,
+            default: ""
+        },
         clics: {
             type: Number,
             default: 0
+        },
+        clicsGrafico: {
+            type: String,
+            default: ""
         },
         nombre: {
             type: String,

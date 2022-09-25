@@ -4,7 +4,6 @@ import { useContext } from "react";
 // componentes
 import Analiticas from "./inicioComponentes/Analiticas";
 import Graficos from "./inicioComponentes/Graficos";
-import Calendario from "./inicioComponentes/Calendario";
 
 // context
 import AuthContext from "../../context/authContext";
@@ -17,8 +16,7 @@ const Inicio = () => {
       <div style={{ height: 60 }}></div>
       <div className="container-fluid contenedor-app">
         <Analiticas usuario={auth} />
-        <Graficos />
-        <Calendario />
+        <Graficos usuario={auth} />
         <div style={{ height: 1 }}></div>
       </div>
     </div>
