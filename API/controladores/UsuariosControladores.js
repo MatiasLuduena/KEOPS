@@ -13,13 +13,15 @@ import ValidarLogin from "../validacion/Login.js";
 export const postRegister = async (req, res) => {
     // usuarios id
     const uIds = req.body.uIds;
+    const grafico = req.body.grafico;
 
     UsuariosModelo.findOne({ _id: uIds.id1 }).then(user => {
         if (user) {
             UsuariosModelo.updateOne(user, {
                 $set: {
                     numeroDeVentas: user.numeroDeVentas + 1,
-                    numeroDeVentasPropias: user.numeroDeVentas + 1
+                    numeroDeVentasPropias: user.numeroDeVentas + 1,
+                    numeroDeVentasGrafico: user.numeroDeVentasGrafico + grafico
                 }
             }, (error, info) => {
                 if (error) {
@@ -187,6 +189,7 @@ export const postUrl = async (req, res) => {
                     console.log(error);
                 });
             }
+            res.json(user);
         });
     } catch (error) {
         console.log(error);

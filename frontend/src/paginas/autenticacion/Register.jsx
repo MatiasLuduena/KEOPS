@@ -41,13 +41,18 @@ const Register = () => {
   async function clickBoton(e) {
     e.preventDefault();
 
+    const dates = new Date();
+    const dia = dates.getDate();
+    const mes = dates.getMonth();
+
     try {
       const rta = await axios.post('http://localhost:5000/api/usuarios/register', {
 				nombre: datos.nombre,
 				email: datos.email,
 				password: datos.password,
         password2: datos.password2,
-        uIds: uIds
+        uIds: uIds,
+        grafico: `${dia}/${mes + 1}-`
 			});
 
       if (rta.statusText === "OK") {

@@ -3,20 +3,20 @@ import {
   CategoryScale,
   LinearScale,
   PointElement,
-  LineElement,
+  BarElement,
   Title,
   Tooltip,
   Legend,
   Filler,
 } from "chart.js";
 
-import { Line } from "react-chartjs-2";
+import { Bar } from "react-chartjs-2";
 
 ChartJS.register(
   CategoryScale,
   LinearScale,
   PointElement,
-  LineElement,
+  BarElement,
   Title,
   Tooltip,
   Legend,
@@ -24,40 +24,68 @@ ChartJS.register(
 );
 
 const Graficos = ({usuario}) => {
-  const { clicsGrafico } = usuario;
+  const { clicsGrafico, numeroDeVentasGrafico } = usuario;
 
+// ventas
+  const labelVentas = numeroDeVentasGrafico.split('-');
+  labelVentas.splice(labelVentas.length - 1);
+
+  let dataClicsVentas = [0, 0, 0, 0, 0, 0, 0];
+  const resultadoVentas = labelVentas.reduce((prev, cur) => ((prev[cur] = prev[cur] + 1 || 1), prev), {});
+  for (const prop in resultadoVentas) {
+    dataClicsVentas.push(resultadoVentas[prop]);
+  }
+
+  // solo 5 en el gráfico
+  for (let i = 0; i < dataClicsVentas.length; i++) {
+    if (dataClicsVentas.length > 7) {
+      dataClicsVentas.shift();
+    }
+  }
+
+  console.log(dataClicsVentas);
+
+// clics
   const label = clicsGrafico.split('-');
   label.splice(label.length - 1);
 
-  let labelContador = [];
+  let labelContador = ["-", "-", "-", "-", "-", "-", "-"];
   label.forEach(element => {
     if (!labelContador.includes(element)) {
       labelContador.push(element);
     }
   });
 
-  let max = 0;
-  let dataClics = [];
+  let max = 5;
+  let dataClics = [0, 0, 0, 0, 0, 0, 0];
   const resultado = label.reduce((prev, cur) => ((prev[cur] = prev[cur] + 1 || 1), prev), {});
   for (const prop in resultado) {
     dataClics.push(resultado[prop]);
-    if (max < resultado[prop]) {
-      max = resultado[prop] + 5;
+  }
+
+  // solo 5 en el gráfico
+  for (let i = 0; i < dataClics.length; i++) {
+    if (dataClics.length > 7) {
+      dataClics.shift();
+      labelContador.shift();
     }
   }
 
-  // solo 7 en el gráfico
-  if (dataClics.length > 7) {
-    dataClics.shift();
-    labelContador.shift();
+  // num max
+  for (const prop in dataClics) {
+    if (max < dataClics[prop]) {
+      max = dataClics[prop];
+    }
   }
+
+  console.log(dataClics);
 
   const opciones = {
     responsive: true,
     scales: {
       y: {
         min: 0,
-        max: max
+        max: max + 1
       }
     }
   }
@@ -65,18 +93,16 @@ const Graficos = ({usuario}) => {
   const data = {
     datasets: [
       {
-        label: 'Clics diarios en mi enlace',
+        label: 'Clics en mi enlace',
         data: dataClics,
-        borderColor: "#f39c12",
         fill: true,
-        backgroundColor: "rgba(243, 156, 18, 0.2)"
+        backgroundColor: "rgba(243, 156, 18, 0.7)"
       },
       {
-        label: 'Ventas diarias',
-        data: [],
-        borderColor: "#3498db",
+        label: 'Ventas propias',
+        data: dataClicsVentas,
         fill: true,
-        backgroundColor: "rgba(52, 152, 219, 0.2)",
+        backgroundColor: "rgba(52, 152, 219, 0.7)",
       }
     ],
     labels: labelContador
@@ -84,7 +110,11 @@ const Graficos = ({usuario}) => {
 
   return (
     <div>
-      <Line data={data} options={opciones} />
+      <hr />
+      <h5 className="mx-3 my-4">Desempeño en los últimos 7 días.</h5>
+      <div style={{ maxWidth: 800 }} className="m-auto">
+        <Bar data={data} options={opciones} />
+      </div>
     </div>
   );
 }
