@@ -19,7 +19,8 @@ const CerrarSesion = () => {
                     <h5 className="modal-title" id="staticBackdropLabel">
                         ¿Estás seguro que deseas cerrar sesión?
                     </h5>
-                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" 
+                    style={{ position: 'absolute', top: 15, right: 15 }}></button>
                 </div>
                 <div className="modal-footer">
                     <button type="button" className="btn btn-primary m-2 mt-4" data-bs-dismiss="modal">

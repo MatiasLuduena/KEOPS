@@ -42,6 +42,14 @@ const usuariosEsquema = new mongoose.Schema(
         urlAcortado: {
             type: String,
             default: null
+        },
+        cbu: {
+            type: String,
+            default: "No haz indicado tu CBU"
+        },
+        alias: {
+            type: String,
+            default: "No haz indicado tu Alias"
         }
     },
     {

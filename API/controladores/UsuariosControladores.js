@@ -149,13 +149,13 @@ export const getAuth = async (req, res) => {
     try {
         const { 
             nombre, email, url, _id, numeroDeVentas, numeroDeVentasPropias, urlAcortado, clics,
-            clicsGrafico, numeroDeVentasGrafico
+            clicsGrafico, numeroDeVentasGrafico, cbu, alias
         } = await UsuariosModelo.findById(req.usuario.id);
 
         res.status(200).json(
             { 
                 nombre, email, url, _id, numeroDeVentas, numeroDeVentasPropias, urlAcortado, clics,
-                clicsGrafico, numeroDeVentasGrafico
+                clicsGrafico, numeroDeVentasGrafico, cbu, alias
             }
         );
     } catch (error) {
@@ -212,4 +212,19 @@ export const postRedirect = async (req, res) => {
             url: user.url
         });
     });
+}
+
+export const postCbuAlias = (req, res) => {
+    const { id, cbu, alias } = req.body;
+
+    UsuariosModelo.updateOne({ _id: id }, {
+        $set: {
+            cbu: cbu,
+            alias: alias
+        }
+    }, (info) => {
+        console.log(info);
+    });
+
+    res.json({cbu, alias});
 }

@@ -6,7 +6,7 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import { Toaster, toast } from "react-hot-toast";
 
 const Analiticas = ({usuario}) => {
-    const [urlAcortado, setUrlAcortado] = useState(null);
+    const [enlaceAcortado, setEnlaceAcortado] = useState(null);
     const [copy, setCopy] = useState("COPIAR");
 
     useEffect(() => {
@@ -15,9 +15,10 @@ const Analiticas = ({usuario}) => {
                 url: usuario.url,
                 id: usuario._id
             });
-            setUrlAcortado(res.data.urlAcortado);
+            setTimeout(() => setEnlaceAcortado(res.data.urlAcortado), 1000);
         }
         fetchUrl();
+        setTimeout(() => fetchUrl(), 1000);
     }, []);
 
   return (
@@ -29,7 +30,8 @@ const Analiticas = ({usuario}) => {
                         <h5>Enlace</h5>
                         <p>Enlace que debo compartir para tener mis ventas.</p>
                     </div>
-                    <CopyToClipboard text={urlAcortado}>
+                    { enlaceAcortado === null ? <></> : (
+                    <CopyToClipboard text={enlaceAcortado}>
                         <div
                             className="insignia-app2"
                             onClick={() => {
@@ -40,6 +42,7 @@ const Analiticas = ({usuario}) => {
                             { copy }
                         </div>
                     </CopyToClipboard>
+                    ) }
                 </div>
                 <Toaster />
             </div>
