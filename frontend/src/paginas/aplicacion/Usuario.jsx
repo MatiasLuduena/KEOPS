@@ -3,17 +3,13 @@ import { useContext } from "react";
 // componentes
 import DatosUsuario from "./inicioComponentes/DatosUsuario";
 import Transferencias from "./inicioComponentes/Transferencias";
+import CerrarSesion from "./inicioComponentes/CerrarSesion";
 
 // context
 import AuthContext from "../../context/authContext";
 
 const Usuario = () => {
   const { auth } = useContext(AuthContext);
-
-  function clicBtn() {
-    localStorage.removeItem('token');
-    window.location.href = "/";
-  }
 
   return (
     <div style={{ backgroundColor: 'rgb(230, 230, 230)' }}>
@@ -23,11 +19,7 @@ const Usuario = () => {
         <hr />
         <Transferencias />
         <hr />
-
-        <div className="insignia-app3 mx-5 my-4" onClick={clicBtn}
-          style={{ maxWidth: 250 }}
-        >CERRAR SESIÓN</div>
-
+        <CerrarSesion />
         <div style={{ height: 1 }}></div>
       </div>
     </div>

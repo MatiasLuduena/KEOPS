@@ -7,6 +7,7 @@ import { Toaster, toast } from "react-hot-toast";
 
 const Analiticas = ({usuario}) => {
     const [urlAcortado, setUrlAcortado] = useState(null);
+    const [copy, setCopy] = useState("COPIAR");
 
     useEffect(() => {
         async function fetchUrl() {
@@ -31,9 +32,12 @@ const Analiticas = ({usuario}) => {
                     <CopyToClipboard text={urlAcortado}>
                         <div
                             className="insignia-app2"
-                            onClick={() => toast('Enlace copiado', { position: 'top-center' })}
+                            onClick={() => {
+                                toast('Enlace copiado en portapapeles', { position: 'top-center' });
+                                setCopy("COPIADO");
+                            }}
                         >
-                            COPIAR ENLACE
+                            { copy }
                         </div>
                     </CopyToClipboard>
                 </div>

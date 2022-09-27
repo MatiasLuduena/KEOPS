@@ -33,7 +33,7 @@
 .insignia-app2 {
     background-color: #2766ae;
     color: #fff;
-    width: 55px;
+    width: auto;
     height: 40px;
     display: flex;
     justify-content: center;

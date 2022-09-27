@@ -43,8 +43,6 @@ const Graficos = ({usuario}) => {
     }
   }
 
-  console.log(dataClicsVentas);
-
 // clics
   const label = clicsGrafico.split('-');
   label.splice(label.length - 1);
@@ -77,8 +75,6 @@ const Graficos = ({usuario}) => {
       max = dataClics[prop];
     }
   }
-
-  console.log(dataClics);
 
   const opciones = {
     responsive: true,
