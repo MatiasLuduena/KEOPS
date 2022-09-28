@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import { keys } from "../config/key.js";
+import arg from "arg.js";
 
 // importacion modelo
 import UsuariosModelo from '../modelos/UsuariosModelo.js';
@@ -149,13 +150,13 @@ export const getAuth = async (req, res) => {
     try {
         const { 
             nombre, email, url, _id, numeroDeVentas, numeroDeVentasPropias, urlAcortado, clics,
-            clicsGrafico, numeroDeVentasGrafico, cbu, alias
+            clicsGrafico, numeroDeVentasGrafico, cbu, cuit
         } = await UsuariosModelo.findById(req.usuario.id);
 
         res.status(200).json(
             { 
                 nombre, email, url, _id, numeroDeVentas, numeroDeVentasPropias, urlAcortado, clics,
-                clicsGrafico, numeroDeVentasGrafico, cbu, alias
+                clicsGrafico, numeroDeVentasGrafico, cbu, cuit
             }
         );
     } catch (error) {
@@ -215,16 +216,31 @@ export const postRedirect = async (req, res) => {
 }
 
 export const postCbuAlias = (req, res) => {
-    const { id, cbu, alias } = req.body;
+    const { id, cbu, cuit } = req.body;
+
+    const cbuValido = arg.cbu.isValid(cbu);
+    const cuitValido = arg.cuit.isValid(cuit);
+
+    if (!cbuValido || !cuitValido) {
+        return res.json({
+            error: {
+                cbu: cbuValido ? "" : "El CBU es invalido",
+                cuit: cuitValido ? "" : "El CUIL es invalido"
+            }
+        });
+    }
+    res.json({
+        ok: 'ok'
+    });
 
     UsuariosModelo.updateOne({ _id: id }, {
         $set: {
             cbu: cbu,
-            alias: alias
+            cuit: cuit
         }
     }, (info) => {
         console.log(info);
     });
 
-    res.json({cbu, alias});
+    res.json({cbu, cuit});
 }

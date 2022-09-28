@@ -45,11 +45,11 @@ const usuariosEsquema = new mongoose.Schema(
         },
         cbu: {
             type: String,
-            default: "No haz indicado tu CBU"
+            default: "No indicado"
         },
-        alias: {
+        cuit: {
             type: String,
-            default: "No haz indicado tu Alias"
+            default: "No indicado"
         }
     },
     {

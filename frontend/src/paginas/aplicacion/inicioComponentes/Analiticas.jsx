@@ -15,7 +15,11 @@ const Analiticas = ({usuario}) => {
                 url: usuario.url,
                 id: usuario._id
             });
-            setTimeout(() => setEnlaceAcortado(res.data.urlAcortado), 1000);
+            if (!res.data.urlAcortado) {
+                setTimeout(() => setEnlaceAcortado(res.data.urlAcortado), 1000);
+            } else {
+                setEnlaceAcortado(res.data.urlAcortado);
+            }
         }
         fetchUrl();
         setTimeout(() => fetchUrl(), 1000);
