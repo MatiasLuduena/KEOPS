@@ -10,6 +10,7 @@ import Register from "./paginas/autenticacion/Register";
 import Inicio from "./paginas/aplicacion/Inicio";
 import Usuario from "./paginas/aplicacion/Usuario";
 import Short from "./paginas/autenticacion/Short";
+import Presentacion from "./paginas/autenticacion/Presentacion";
 
 // componentes
 import Navbar from "./componentes/Navbar";
@@ -47,16 +48,19 @@ function App() {
       <BrowserRouter>
         <div className="fondo-auth">
           <div 
-            className="container vh-100 d-flex justify-content-center align-items-center"
+            className="d-flex justify-content-center align-items-center"
+            style={{ minHeight: '100vh' }}
           >
             <Routes>
+              <Route path="/presentacion" element={<Presentacion />} />
+
               <Route path="/iniciosesion" element={<Login />} />
 
               <Route path="/registrarme" element={<Register />} />
 
               <Route path="/short/:id" element={<Short />} />
 
-              <Route path="/" element={<Navigate to="/registrarme" />} />
+              <Route path="/" element={<Navigate to="/presentacion" />} />
             </Routes>
           </div>
         </div>

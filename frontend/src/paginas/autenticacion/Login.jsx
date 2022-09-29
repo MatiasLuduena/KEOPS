@@ -32,7 +32,7 @@ const Login = () => {
   }
 
   return (
-    <div className="card-login p-4">
+    <div className="card-login p-4 m-3">
       <div className="card-login_head mt-4">
         <h4>INICIAR SESIÓN</h4>
         <p>Bienvenido a KEOPS.</p>

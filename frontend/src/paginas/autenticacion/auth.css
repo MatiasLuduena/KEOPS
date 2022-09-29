@@ -30,3 +30,41 @@
 .card-login a {
     color: grey;
 }
+
+/* PRESENTACIÓN */
+.contenedor-present {
+    width: 100%;
+    min-height: 100vh;
+    background-image: url('https://i.ibb.co/GnKJ3XW/money.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center center;
+}
+
+.div-pre {
+    width: 100%;
+    max-width: 800px;
+    height: auto;
+    background-color: rgba(0, 0, 0, 0.8);
+    margin: 10px 0;
+    box-shadow: 7px 7px rgba(0, 0, 0, 0.4);
+    color: rgb(235, 235, 235);
+    letter-spacing: 1px;
+    padding: 16px;
+}
+
+.div-pre h5 {
+    letter-spacing: 0.12em;
+    line-height: 23px;
+}
+
+@media (min-width: 767px) {
+    .div-pre {
+        padding: 30px;
+    }
+    .div-pre h5 {
+        line-height: 25px;
+        letter-spacing: 0.15em;
+    }
+}

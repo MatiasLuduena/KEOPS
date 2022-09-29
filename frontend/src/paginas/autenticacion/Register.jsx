@@ -65,7 +65,7 @@ const Register = () => {
   }
 
   return (
-    <div className="card-login p-4">
+    <div className="card-login p-4 m-3">
       <div className="card-login_head mt-4">
         <div className="d-flex justify-content-between">
           <h4>CREAR CUENTA</h4>
