@@ -69,7 +69,7 @@ const Register = () => {
       <div className="card-login_head mt-4">
         <div className="d-flex justify-content-between">
           <h4>CREAR CUENTA</h4>
-          <h4>$400</h4>
+          <h4>$399</h4>
         </div>
         <p>Se te cobrará una licencia única.</p>
       </div>

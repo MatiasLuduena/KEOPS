@@ -52,7 +52,7 @@ function App() {
             style={{ minHeight: '100vh' }}
           >
             <Routes>
-              <Route path="/presentacion" element={<Presentacion />} />
+              <Route path="/" element={<Presentacion />} />
 
               <Route path="/iniciosesion" element={<Login />} />
 
@@ -60,7 +60,7 @@ function App() {
 
               <Route path="/short/:id" element={<Short />} />
 
-              <Route path="/" element={<Navigate to="/presentacion" />} />
+              <Route path="/*" element={<Navigate to="/" />} />
             </Routes>
           </div>
         </div>
