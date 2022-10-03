@@ -12,6 +12,39 @@ import ValidarLogin from "../validacion/Login.js";
 
 // métodos
 export const postRegister = async (req, res) => {
+    // Validar formulario
+    const { errores, esValido } = ValidarRegister(req.body);
+
+    if (!esValido) {
+      return res.status(400).json(errores);
+    }
+
+    UsuariosModelo.findOne({ nombre: req.body.nombre }).then(user => {
+        if (user) {
+            return res.status(400).json({ nombre: "El nombre ya está en uso" });
+        } else {
+            const nuevoUsuario = new UsuariosModelo({
+            nombre: req.body.nombre,
+            password: req.body.password,
+            url: `/registrarme?uid1=MYID&uid2=${uIds.id1}&uid3=${uIds.id2}`
+        });
+
+        // Encriptado de contraseña
+        bcrypt.genSalt(10, (err, salt) => {
+            bcrypt.hash(nuevoUsuario.password, salt, (err, hash) => {
+                if (err) throw err;
+                nuevoUsuario.password = hash;
+
+                nuevoUsuario
+                    .save()
+                    .then(user => res.json(user))
+                    .catch(err => console.log(err))
+                ;
+            });
+        });
+      }
+    });
+
     // usuarios id
     const uIds = req.body.uIds;
     const grafico = req.body.grafico;
@@ -68,40 +101,6 @@ export const postRegister = async (req, res) => {
             });
         }
     }).catch(error => console.log('no existe id3'));
-
-    // Validar formulario
-    const { errores, esValido } = ValidarRegister(req.body);
-
-    if (!esValido) {
-      return res.status(400).json(errores);
-    }
-
-    UsuariosModelo.findOne({ email: req.body.email }).then(user => {
-        if (user) {
-            return res.status(400).json({ email: "El email ya está en uso" });
-        } else {
-            const nuevoUsuario = new UsuariosModelo({
-            nombre: req.body.nombre,
-            email: req.body.email,
-            password: req.body.password,
-            url: `/registrarme?uid1=MYID&uid2=${uIds.id1}&uid3=${uIds.id2}`
-        });
-
-        // Encriptado de contraseña
-        bcrypt.genSalt(10, (err, salt) => {
-            bcrypt.hash(nuevoUsuario.password, salt, (err, hash) => {
-                if (err) throw err;
-                nuevoUsuario.password = hash;
-
-                nuevoUsuario
-                    .save()
-                    .then(user => res.json(user))
-                    .catch(err => console.log(err))
-                ;
-            });
-        });
-      }
-    });
 }
 
 export const postLogin = (req, res) => {
@@ -111,12 +110,12 @@ export const postLogin = (req, res) => {
       return res.status(400).json(errores);
     }
 
-    const email = req.body.email;
+    const nombre = req.body.nombre;
     const password = req.body.password;
 
-    UsuariosModelo.findOne({ email }).then(user => {
+    UsuariosModelo.findOne({ nombre }).then(user => {
         if (!user) {
-            return res.status(404).json({ emailIncorrecto: "Email incorrecto" });
+            return res.status(404).json({ nombre: "Nombre incorrecto" });
         }
 
         bcrypt.compare(password, user.password).then(isMatch => {
@@ -140,7 +139,7 @@ export const postLogin = (req, res) => {
             } else {
             return res
                 .status(400)
-                .json({ contrasenaIncorrecta: "Contraseña incorrecta" });
+                .json({ password: "Contraseña incorrecta" });
             }
         });
     });
@@ -150,13 +149,13 @@ export const getAuth = async (req, res) => {
     try {
         const { 
             nombre, email, url, _id, numeroDeVentas, numeroDeVentasPropias, urlAcortado, clics,
-            clicsGrafico, numeroDeVentasGrafico, cbu, cuit
+            clicsGrafico, numeroDeVentasGrafico, cbu, cuit, pago
         } = await UsuariosModelo.findById(req.usuario.id);
 
         res.status(200).json(
             { 
                 nombre, email, url, _id, numeroDeVentas, numeroDeVentasPropias, urlAcortado, clics,
-                clicsGrafico, numeroDeVentasGrafico, cbu, cuit
+                clicsGrafico, numeroDeVentasGrafico, cbu, cuit, pago
             }
         );
     } catch (error) {

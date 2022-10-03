@@ -6,7 +6,6 @@ export default function validarRegistro(data) {
     
     // Convierta campos vacíos en una cadena vacía
     data.nombre = !isEmpty(data.nombre) ? data.nombre : "";
-    data.email = !isEmpty(data.email) ? data.email : "";
     data.password = !isEmpty(data.password) ? data.password : "";
     data.password2 = !isEmpty(data.password2) ? data.password2 : "";
 
@@ -14,14 +13,6 @@ export default function validarRegistro(data) {
     if (Validator.isEmpty(data.nombre)) {
         errores.nombre = "El nombre es requerido";
     }
-
-    
-    if (Validator.isEmpty(data.email)) {
-        errores.email = "El email es requerido";
-    } else if (!Validator.isEmail(data.email)) {
-        errores.email = "El email es invalido";
-    }
-
 
     if (Validator.isEmpty(data.password)) {
         errores.password = "La contraseña es requerida";

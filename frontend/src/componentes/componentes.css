@@ -25,3 +25,14 @@ footer p {
 .usuario:hover {
     color: rgb(218, 218, 218);
 }
+
+.pago-c {
+    width: 100%;
+    min-height: 100vh;
+}
+
+.p-nota {
+    color: #444444;
+    font-size: 15px;
+    letter-spacing: 1px;
+}

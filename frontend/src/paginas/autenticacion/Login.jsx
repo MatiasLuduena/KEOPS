@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import authContext from "../../context/authContext";
 
 const datosIniciales = {
-  email: "", password: ""
+  nombre: "", password: ""
 };
 
 const Login = () => {
@@ -22,7 +22,7 @@ const Login = () => {
 
     try {
 			const rta = await axios.post('http://localhost:5000/api/usuarios/login', {
-				email: datos.email,
+				nombre: datos.nombre,
 				password: datos.password
 			});
       setToken(rta.data.token);
@@ -40,14 +40,14 @@ const Login = () => {
 
       <form className="mt-4">
         <div className="input-field col s12">
-          <label htmlFor="email">Correo electrónico</label>
+          <label htmlFor="name">Nombre de usuario</label>
           <input 
-            type="text" id="email" value={datos.email}
+            type="text" id="name" value={datos.nombre}
             onChange={(evento) => {
-              setDatos({...datos, email: evento.target.value});
+              setDatos({...datos, nombre: evento.target.value});
             }}
           />
-          <p className="red-text">{errores.email}</p>
+          <p className="red-text">{errores.nombre}</p>
         </div>
         <div className="input-field col s12 mt-4">
           <label htmlFor="password">Contraseña</label>

@@ -5,7 +5,7 @@ import axios from "axios";
 import { Link, useSearchParams } from "react-router-dom";
 
 const datosIniciales = {
-  nombre: "", email: "", password: "", password2: ""
+  nombre: "", password: "", password2: ""
 };
 
 const Register = () => {
@@ -48,7 +48,6 @@ const Register = () => {
     try {
       const rta = await axios.post('http://localhost:5000/api/usuarios/register', {
 				nombre: datos.nombre,
-				email: datos.email,
 				password: datos.password,
         password2: datos.password2,
         uIds: uIds,
@@ -67,16 +66,13 @@ const Register = () => {
   return (
     <div className="card-login p-4 m-3">
       <div className="card-login_head mt-4">
-        <div className="d-flex justify-content-between">
-          <h4>CREAR CUENTA</h4>
-          <h4>$399</h4>
-        </div>
-        <p>Se te cobrará una licencia única.</p>
+        <h4>CREAR CUENTA</h4>
+        <p>Bienvenido a KEOPS.</p>
       </div>
 
       <form className="mt-4">
         <div className="input-field col s12">
-          <label htmlFor="nombre">Nombre de usuario</label>
+          <label htmlFor="nombre">Nombre único de usuario</label>
           <input
             type="text" id="nombre" value={datos.nombre}
             onChange={(evento) => {
@@ -84,16 +80,6 @@ const Register = () => {
             }}
           />
           <p className="red-text">{errores.nombre}</p>
-        </div>
-        <div className="input-field col s12">
-          <label htmlFor="email">Correo electrónico</label>
-          <input
-            type="text" id="email" value={datos.email}
-            onChange={(evento) => {
-              setDatos({...datos, email: evento.target.value});
-            }}
-          />
-          <p className="red-text">{errores.email}</p>
         </div>
         <div className="input-field col s12 mt-4">
           <label htmlFor="password">Contraseña</label>
@@ -115,7 +101,7 @@ const Register = () => {
           />
           <p className="red-text">{errores.password2}</p>
         </div>
-        <button className="waves-effect btn mt-3" onClick={clickBoton}>IR A PAGAR</button>
+        <button className="waves-effect btn mt-3" onClick={clickBoton}>CREAR CUENTA</button>
       </form>
 
       <div className="d-flex justify-content-center mt-4">

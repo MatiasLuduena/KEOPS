@@ -5,13 +5,11 @@ export default function validarLogin(data) {
     let errores = {};
 
     // Convierta campos vacíos en una cadena vacía
-    data.email = !isEmpty(data.email) ? data.email : "";
+    data.nombre = !isEmpty(data.nombre) ? data.nombre : "";
     data.password = !isEmpty(data.password) ? data.password : "";
 
-    if (Validator.isEmpty(data.email)) {
-        errores.email = "El correo electrónico es requerido";
-    } else if (!Validator.isEmail(data.email)) {
-        errores.email = "El email es invalido";
+    if (Validator.isEmpty(data.nombre)) {
+        errores.nombre = "El nombre es requerido";
     }
     
     if (Validator.isEmpty(data.password)) {

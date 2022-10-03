@@ -80,7 +80,7 @@ const Presentacion = () => {
                             fontSize: 17, lineHeight: '28px', letterSpacing: '1px', color: '#134b3f' 
                         }}
                     >
-                        Luego de registrarte con tu nombre usuario único y contraseña se te pedirá que pagues una licencia de tan solo AR$399, el pago aceptado es por transferencia bancaria, es la única forma de evitar impuestos. Una vez hecho el pago se te habilitará el panel principal de KEOPS en el que podrás ubicar tu enlace único de referidos, el cual, es el que deberás compartir para traer nuevos clientes a la app.
+                        Luego de registrarte con tu nombre usuario único y contraseña se te pedirá que pagues una licencia de tan solo AR$399, el pago aceptado es por transferencia bancaria (recomendado) o tarjeta de crédito o débito. Una vez hecho el pago se te habilitará el panel principal de KEOPS en el que podrás ubicar tu enlace único de referidos, el cual, es el que deberás compartir para traer nuevos clientes a la app.
                     </h4>
                     </div>
                     <div className="mx-1">
@@ -113,7 +113,7 @@ const Presentacion = () => {
                         className="mt-3"
                         style={{ fontSize: 17, lineHeight: '28px', letterSpacing: '1px' }} 
                     >
-                        Los pagos serán con transferancias bancarias, una vez solicites el retiro del dinero que hayas generado, te transferiremos a la cuenta bancaria que nos hayas indicado. No se te cobrará ninguna comisión, tus ganancias son totales.
+                        Los pagos serán con transferancias bancarias, una vez solicites el retiro del dinero que hayas generado, te transferiremos a la cuenta bancaria que nos hayas indicado.
                     </h5>
                     </div>
                     <img src="https://cdn-icons-png.flaticon.com/512/1770/1770992.png"
